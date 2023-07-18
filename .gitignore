@@ -1,0 +1,7 @@
+*.cs.meta
+*.meta
+/Library
+/Logs
+/Packages
+/ProjectSettings
+/Temp
