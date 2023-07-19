@@ -1,0 +1,38 @@
+name: Unity Test
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Unity
+      uses: game-ci/unity-setup@v1
+
+    # - name: Install dependencies
+    #   run: |
+
+    # Uses Unity CLI commands
+    - name: Build and run Unity tests
+      run: |
+        unity -projectPath . -runTests -testPlatform editmode -editorTestsResultFile EditorTests.log -testFilter YourTestFilter
+
+    # License has to be added to the GH secrets
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: EditorTests.log # Replace "EditorTests.log" with the actual log file generated during the tests

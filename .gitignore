@@ -1,5 +1,6 @@
 *.cs.meta
 *.meta
+*.x.ulf
 /Library
 /Logs
 /Packages
